@@ -1,15 +1,14 @@
-from flask import Flask, request, redirect, render_template, flash, session
+from flask import Flask, request, redirect, render_template, flash
 from flask_debugtoolbar import DebugToolbarExtension
 from models import db, connect_db, User, Post, Tag
 
-database_uri = 'postgresql+psycopg2://postgres:Getfuzzy1@localhost:5432/blogly'
-
 app = Flask(__name__)
+
+database_uri = 'postgresql+psycopg2://postgres:Getfuzzy1@localhost:5432/blogly'
 
 app.config['SQLALCHEMY_DATABASE_URI'] = database_uri
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['SQLALCHEMY_ECHO'] = True
-app.config['SECRET_KEY'] = 'Supdog9876'
+app.config['SECRET_KEY'] = 'ihaveasecret'
 
 # Having the Debug Toolbar show redirects explicitly is often useful;
 # however, if you want to turn it off, you can uncomment this line:
@@ -19,14 +18,14 @@ app.config['SECRET_KEY'] = 'Supdog9876'
 toolbar = DebugToolbarExtension(app)
 
 connect_db(app)
-# db.create_all()
+db.create_all()
 
 
 @app.route('/')
 def root():
     """Show recent list of posts, most-recent first."""
 
-    posts = Post.query.order_by(Post.created_at.desc()).limit(10).all()
+    posts = Post.query.order_by(Post.created_at.desc()).limit(5).all()
     return render_template("posts/homepage.html", posts=posts)
 
 
@@ -133,9 +132,9 @@ def posts_new(user_id):
     """Handle form submission for creating a new post for a specific user"""
 
     user = User.query.get_or_404(user_id)
-    tags_ids = [int(num) for num in request.form.getlist('tags')]
+    tag_ids = [int(num) for num in request.form.getlist("tags")]
     tags = Tag.query.filter(Tag.id.in_(tag_ids)).all()
-    
+
     new_post = Post(title=request.form['title'],
                     content=request.form['content'],
                     user=user,
@@ -172,8 +171,8 @@ def posts_update(post_id):
     post = Post.query.get_or_404(post_id)
     post.title = request.form['title']
     post.content = request.form['content']
-    
-    tag_ids = [int(num) for num in request.form.getlist('tags')]
+
+    tag_ids = [int(num) for num in request.form.getlist("tags")]
     post.tags = Tag.query.filter(Tag.id.in_(tag_ids)).all()
 
     db.session.add(post)
@@ -195,79 +194,82 @@ def posts_destroy(post_id):
 
     return redirect(f"/users/{post.user_id}")
 
-# ############# TAGS routes ###############################
+
+##############################################################################
+# Tags route
+
 
 @app.route('/tags')
 def tags_index():
-    """show a page with tag info"""
-    
+    """Show a page with info on all tags"""
+
     tags = Tag.query.all()
     return render_template('tags/index.html', tags=tags)
 
 
 @app.route('/tags/new')
 def tags_new_form():
-    """show a form to create new tag"""
-    
+    """Show a form to create a new tag"""
+
     posts = Post.query.all()
     return render_template('tags/new.html', posts=posts)
 
 
-@app.route('/tags/new', methods=['POST'])
+@app.route("/tags/new", methods=["POST"])
 def tags_new():
-    """handle form submission for creating new tag"""
-    
-    post_ids = [int(num) for num in request.form.getlist('posts')]
+    """Handle form submission for creating a new tag"""
+
+    post_ids = [int(num) for num in request.form.getlist("posts")]
     posts = Post.query.filter(Post.id.in_(post_ids)).all()
-    mew_tag = Tag(name=request.form['name'], posts=posts)
-    
+    new_tag = Tag(name=request.form['name'], posts=posts)
+
     db.session.add(new_tag)
     db.session.commit()
-    flash(f"Tag '{mew_tag.name}' has been added.")
-    
-    return redirect('/tags')
+    flash(f"Tag '{new_tag.name}' added.")
+
+    return redirect("/tags")
 
 
 @app.route('/tags/<int:tag_id>')
 def tags_show(tag_id):
-    """show a page with info on specific tag"""
-    
+    """Show a page with info on a specific tag"""
+
     tag = Tag.query.get_or_404(tag_id)
     return render_template('tags/show.html', tag=tag)
 
 
 @app.route('/tags/<int:tag_id>/edit')
 def tags_edit_form(tag_id):
-    """show form to edit an existing tag"""
-    
+    """Show a form to edit an existing tag"""
+
     tag = Tag.query.get_or_404(tag_id)
     posts = Post.query.all()
     return render_template('tags/edit.html', tag=tag, posts=posts)
 
 
-@app.route('/tags/<int:tag_id>/edit', methods=['POST'])
+@app.route('/tags/<int:tag_id>/edit', methods=["POST"])
 def tags_edit(tag_id):
-    """handle form submission for updating existing tag"""
-    
+    """Handle form submission for updating an existing tag"""
+
     tag = Tag.query.get_or_404(tag_id)
     tag.name = request.form['name']
-    post_ids = [int(num) for num in request.form.getlist('posts')]
+    post_ids = [int(num) for num in request.form.getlist("posts")]
     tag.posts = Post.query.filter(Post.id.in_(post_ids)).all()
-    
+
     db.session.add(tag)
     db.session.commit()
-    flash(f"Tag '{tag.name}' has been edited.")
-    
-    return redirect('/tags')
+    flash(f"Tag '{tag.name}' edited.")
+
+    return redirect("/tags")
 
 
 @app.route('/tags/<int:tag_id>/delete', methods=["POST"])
 def tags_destroy(tag_id):
-    """handle form submission for deleting tag"""
-    
+    """Handle form submission for deleting an existing tag"""
+
     tag = Tag.query.get_or_404(tag_id)
     db.session.delete(tag)
     db.session.commit()
-    flash(f"Tag '{tag.name}' has been deleted.")
-    
-    return redirect('/tags')
+    flash(f"Tag '{tag.name}' deleted.")
+
+    return redirect("/tags")
