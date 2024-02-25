@@ -47,7 +47,26 @@ class Post(db.Model):
         """Return nicely-formatted date."""
 
         return self.created_at.strftime("%a %b %-d  %Y, %-I:%M %p")
+    
 
+class PostTag(db.Model):
+    """Tag on a post"""
+    
+    __tablename__ = 'posts_tags'
+    
+    post_id = db.Column(db.Integer, db.ForeignKey('posts.id'), primary_key=True)
+    tag_id = db.Column(db.Integer, db.ForeignKey('tags.id'), primary_key=True)
+
+
+class Tag(db.Model):
+    """tag that can be added to a post"""
+    
+    __tablename__ = 'tags'
+    
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.Text, nullable=False, unique=True)
+    
+    posts = db.relationship('Post', secondary='posts_tags', backref='tags')
 
 def connect_db(app):
     """Connect this database to provided Flask app.
