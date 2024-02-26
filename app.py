@@ -25,7 +25,7 @@ connect_db(app)
 def root():
     """Show recent list of posts, most-recent first."""
 
-    posts = Post.query.order_by(Post.created_at.desc()).limit(5).all()
+    posts = Post.query.order_by(Post.created_at.desc()).limit(10).all()
     return render_template("posts/homepage.html", posts=posts)
 
 
@@ -152,7 +152,8 @@ def posts_show(post_id):
     """Show a page with info on a specific post"""
 
     post = Post.query.get_or_404(post_id)
-    return render_template('posts/show.html', post=post)
+    tags = Tag.query.all()
+    return render_template('posts/show.html', post=post, tags=tags)
 
 
 @app.route('/posts/<int:post_id>/edit')
