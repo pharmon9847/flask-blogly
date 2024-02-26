@@ -2,6 +2,14 @@ from flask import Flask, request, redirect, render_template, flash
 from flask_debugtoolbar import DebugToolbarExtension
 from models import db, connect_db, User, Post, Tag
 
+from sqlalchemy import create_engine
+
+engine = create_engine('postgresql+psycopg2://postgres:Getfuzzy1@127.0.0.1:5432/blogly')
+
+from sqlalchemy import Session
+
+session = Session(engine)
+
 import inspect
 
 if not hasattr(inspect, 'getargspec'):
@@ -9,12 +17,13 @@ if not hasattr(inspect, 'getargspec'):
 
 app = Flask(__name__)
 
+app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql+psycopg2://postgres:Getfuzzy1@127.0.0.1:5432/blogly"
 # connecting to pgadmin instead of postgres locally
 # database_uri = 'postgresql+psycopg2://postgres:Getfuzzy1@127.0.0.1:5432/blogly'
 # database_uri = 'postgres://tzhjbumr:7LhS3yvsI2BcGdKfYVaMN6X-iYuro_1M@stampy.db.elephantsql.com/tzhjbumr'
-database_uri = 'postgres://mpzjqsja:2s8dz_Ae5V1hNjWUDIFYl8KQ8n20XJUK@stampy.db.elephantsql.com/mpzjqsja'
+# database_uri = 'postgres://mpzjqsja:2s8dz_Ae5V1hNjWUDIFYl8KQ8n20XJUK@stampy.db.elephantsql.com/mpzjqsja'
 
-app.config['SQLALCHEMY_DATABASE_URI'] = database_uri
+# app.config['SQLALCHEMY_DATABASE_URI'] = database_uri
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECRET_KEY'] = 'ihaveasecret'
 
