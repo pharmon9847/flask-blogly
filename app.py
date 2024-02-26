@@ -6,9 +6,9 @@ from sqlalchemy import create_engine
 
 engine = create_engine('postgresql+psycopg2://postgres:Getfuzzy1@127.0.0.1:5432/blogly')
 
-from sqlalchemy import Session
+# from sqlalchemy import Session
 
-session = Session(engine)
+# session = Session(engine)
 
 import inspect
 
