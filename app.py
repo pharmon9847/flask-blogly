@@ -10,8 +10,8 @@ if not hasattr(inspect, 'getargspec'):
 app = Flask(__name__)
 
 # connecting to pgadmin instead of postgres locally
-# database_uri = 'postgresql+psycopg2://postgres:Getfuzzy1@localhost:5432/blogly'
-database_uri = 'postgres://tzhjbumr:7LhS3yvsI2BcGdKfYVaMN6X-iYuro_1M@stampy.db.elephantsql.com/tzhjbumr'
+database_uri = 'postgresql+psycopg2://postgres:Getfuzzy1@127.0.0.1:5432/blogly'
+# database_uri = 'postgres://tzhjbumr:7LhS3yvsI2BcGdKfYVaMN6X-iYuro_1M@stampy.db.elephantsql.com/tzhjbumr'
 
 app.config['SQLALCHEMY_DATABASE_URI'] = database_uri
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
