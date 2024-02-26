@@ -2,6 +2,11 @@ from flask import Flask, request, redirect, render_template, flash
 from flask_debugtoolbar import DebugToolbarExtension
 from models import db, connect_db, User, Post, Tag
 
+import inspect
+
+if not hasattr(inspect, 'getargspec'):
+    inspect.getargspec = inspect.getfullargspec
+
 app = Flask(__name__)
 
 # connecting to pgadmin instead of postgres locally
@@ -15,7 +20,7 @@ app.config['SECRET_KEY'] = 'ihaveasecret'
 
 toolbar = DebugToolbarExtension(app)
 
-args, varargs, keywords, defaults, foo, foo1, foo2 = inspect.getfullargspec(func)
+# args, varargs, keywords, defaults, foo, foo1, foo2 = inspect.getfullargspec(func)
 
 connect_db(app)
 # db.create_all()
