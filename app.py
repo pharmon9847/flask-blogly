@@ -15,6 +15,8 @@ app.config['SECRET_KEY'] = 'ihaveasecret'
 
 toolbar = DebugToolbarExtension(app)
 
+args, varargs, keywords, defaults, foo, foo1, foo2 = inspect.getfullargspec(func)
+
 connect_db(app)
 # db.create_all()
 
