@@ -4,15 +4,13 @@ from models import db, connect_db, User, Post, Tag
 
 app = Flask(__name__)
 
+# connecting to pgadmin instead of postgres locally
 database_uri = 'postgresql+psycopg2://postgres:Getfuzzy1@localhost:5432/blogly'
 
 app.config['SQLALCHEMY_DATABASE_URI'] = database_uri
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECRET_KEY'] = 'ihaveasecret'
 
-# Having the Debug Toolbar show redirects explicitly is often useful;
-# however, if you want to turn it off, you can uncomment this line:
-#
 # app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
 
 toolbar = DebugToolbarExtension(app)
@@ -23,7 +21,7 @@ connect_db(app)
 
 @app.route('/')
 def root():
-    """Show recent list of posts, most-recent first."""
+    """Show list of posts, most-recent first."""
 
     posts = Post.query.order_by(Post.created_at.desc()).limit(10).all()
     return render_template("posts/homepage.html", posts=posts)
@@ -36,12 +34,11 @@ def page_not_found(e):
     return render_template('404.html'), 404
 
 
-##############################################################################
-# User route
+##################################### USER ROUTES #########################################
 
 @app.route('/users')
 def users_index():
-    """Show a page with info on all users"""
+    """Page with info on all users"""
 
     users = User.query.order_by(User.last_name, User.first_name).all()
     return render_template('users/index.html', users=users)
@@ -49,14 +46,14 @@ def users_index():
 
 @app.route('/users/new', methods=["GET"])
 def users_new_form():
-    """Show a form to create a new user"""
+    """Form to create a new user"""
 
     return render_template('users/new.html')
 
 
 @app.route("/users/new", methods=["POST"])
 def users_new():
-    """Handle form submission for creating a new user"""
+    """Handle form submission for creating new user"""
 
     new_user = User(
         first_name=request.form['first_name'],
@@ -72,7 +69,7 @@ def users_new():
 
 @app.route('/users/<int:user_id>')
 def users_show(user_id):
-    """Show a page with info on a specific user"""
+    """Page with info on a specific user"""
 
     user = User.query.get_or_404(user_id)
     return render_template('users/show.html', user=user)
@@ -80,7 +77,7 @@ def users_show(user_id):
 
 @app.route('/users/<int:user_id>/edit')
 def users_edit(user_id):
-    """Show a form to edit an existing user"""
+    """Form to edit an existing user"""
 
     user = User.query.get_or_404(user_id)
     return render_template('users/edit.html', user=user)
@@ -88,7 +85,7 @@ def users_edit(user_id):
 
 @app.route('/users/<int:user_id>/edit', methods=["POST"])
 def users_update(user_id):
-    """Handle form submission for updating an existing user"""
+    """Handle form submission for updating existing user"""
 
     user = User.query.get_or_404(user_id)
     user.first_name = request.form['first_name']
@@ -104,7 +101,7 @@ def users_update(user_id):
 
 @app.route('/users/<int:user_id>/delete', methods=["POST"])
 def users_destroy(user_id):
-    """Handle form submission for deleting an existing user"""
+    """Handle form submission for deleting existing user"""
 
     user = User.query.get_or_404(user_id)
     db.session.delete(user)
@@ -114,13 +111,12 @@ def users_destroy(user_id):
     return redirect("/users")
 
 
-##############################################################################
-# Posts route
+#################################### POST ROUTES ##########################################
 
 
 @app.route('/users/<int:user_id>/posts/new')
 def posts_new_form(user_id):
-    """Show a form to create a new post for a specific user"""
+    """Form to create a new post for a specific user"""
 
     user = User.query.get_or_404(user_id)
     tags = Tag.query.all()
@@ -129,7 +125,7 @@ def posts_new_form(user_id):
 
 @app.route('/users/<int:user_id>/posts/new', methods=["POST"])
 def posts_new(user_id):
-    """Handle form submission for creating a new post for a specific user"""
+    """Handle form submission for creating new post for specific user"""
 
     user = User.query.get_or_404(user_id)
     tag_ids = [int(num) for num in request.form.getlist("tags")]
@@ -149,7 +145,7 @@ def posts_new(user_id):
 
 @app.route('/posts/<int:post_id>')
 def posts_show(post_id):
-    """Show a page with info on a specific post"""
+    """Page with info on a specific post"""
 
     post = Post.query.get_or_404(post_id)
     tags = Tag.query.all()
@@ -158,7 +154,7 @@ def posts_show(post_id):
 
 @app.route('/posts/<int:post_id>/edit')
 def posts_edit(post_id):
-    """Show a form to edit an existing post"""
+    """Form to edit an existing post"""
 
     post = Post.query.get_or_404(post_id)
     tags = Tag.query.all()
@@ -167,7 +163,7 @@ def posts_edit(post_id):
 
 @app.route('/posts/<int:post_id>/edit', methods=["POST"])
 def posts_update(post_id):
-    """Handle form submission for updating an existing post"""
+    """Handle form submission for updating existing post"""
 
     post = Post.query.get_or_404(post_id)
     post.title = request.form['title']
@@ -185,7 +181,7 @@ def posts_update(post_id):
 
 @app.route('/posts/<int:post_id>/delete', methods=["POST"])
 def posts_destroy(post_id):
-    """Handle form submission for deleting an existing post"""
+    """Handle form submission for deleting existing post"""
 
     post = Post.query.get_or_404(post_id)
 
@@ -196,13 +192,12 @@ def posts_destroy(post_id):
     return redirect(f"/users/{post.user_id}")
 
 
-##############################################################################
-# Tags route
+#################################### TAGS ROUTES ##########################################
 
 
 @app.route('/tags')
 def tags_index():
-    """Show a page with info on all tags"""
+    """Page with info on all tags"""
 
     tags = Tag.query.all()
     return render_template('tags/index.html', tags=tags)
@@ -210,7 +205,7 @@ def tags_index():
 
 @app.route('/tags/new')
 def tags_new_form():
-    """Show a form to create a new tag"""
+    """Form to create a new tag"""
 
     posts = Post.query.all()
     return render_template('tags/new.html', posts=posts)
@@ -218,7 +213,7 @@ def tags_new_form():
 
 @app.route("/tags/new", methods=["POST"])
 def tags_new():
-    """Handle form submission for creating a new tag"""
+    """Handle form submission for creating new tag"""
 
     post_ids = [int(num) for num in request.form.getlist("posts")]
     posts = Post.query.filter(Post.id.in_(post_ids)).all()
@@ -233,7 +228,7 @@ def tags_new():
 
 @app.route('/tags/<int:tag_id>')
 def tags_show(tag_id):
-    """Show a page with info on a specific tag"""
+    """Page with info on a specific tag"""
 
     tag = Tag.query.get_or_404(tag_id)
     return render_template('tags/show.html', tag=tag)
@@ -241,7 +236,7 @@ def tags_show(tag_id):
 
 @app.route('/tags/<int:tag_id>/edit')
 def tags_edit_form(tag_id):
-    """Show a form to edit an existing tag"""
+    """Form to edit an existing tag"""
 
     tag = Tag.query.get_or_404(tag_id)
     posts = Post.query.all()
@@ -250,7 +245,7 @@ def tags_edit_form(tag_id):
 
 @app.route('/tags/<int:tag_id>/edit', methods=["POST"])
 def tags_edit(tag_id):
-    """Handle form submission for updating an existing tag"""
+    """Handle form submission for updating existing tag"""
 
     tag = Tag.query.get_or_404(tag_id)
     tag.name = request.form['name']
@@ -266,7 +261,7 @@ def tags_edit(tag_id):
 
 @app.route('/tags/<int:tag_id>/delete', methods=["POST"])
 def tags_destroy(tag_id):
-    """Handle form submission for deleting an existing tag"""
+    """Handle form submission for deleting existing tag"""
 
     tag = Tag.query.get_or_404(tag_id)
     db.session.delete(tag)
