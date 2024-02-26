@@ -81,3 +81,17 @@ def connect_db(app):
 
     db.app = app
     db.init_app(app)
+    
+    
+if __name__ == "__main__":
+    app.run()
+    # As a convenience, if we run this module interactively, it will leave
+    # you in a state of being able to work with the database directly.
+
+    # So that we can use Flask-SQLAlchemy, we'll make a Flask app
+    from app import app
+    connect_db(app)
+
+    db.drop_all()
+    db.create_all()
+    example_data()
