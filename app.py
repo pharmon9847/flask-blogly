@@ -2,9 +2,9 @@ from flask import Flask, request, redirect, render_template, flash
 from flask_debugtoolbar import DebugToolbarExtension
 from models import db, connect_db, User, Post, Tag
 
-from sqlalchemy import create_engine
+# from sqlalchemy import create_engine
 
-engine = create_engine('postgresql+psycopg2://postgres:Getfuzzy1@127.0.0.1:5432/blogly')
+# engine = create_engine('postgresql+psycopg2://postgres:Getfuzzy1@127.0.0.1:5050/blogly')
 
 # from sqlalchemy import Session
 
@@ -17,11 +17,11 @@ if not hasattr(inspect, 'getargspec'):
 
 app = Flask(__name__)
 
-# app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql+psycopg2://postgres:Getfuzzy1@127.0.0.1:5432/blogly"
+# app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql+psycopg2://admin:Getfuzzy1@database-1.czy6u4a2ykly.us-east-1.rds.amazonaws.com/database-1"
 # connecting to pgadmin instead of postgres locally
 # database_uri = 'postgresql+psycopg2://postgres:Getfuzzy1@127.0.0.1:5432/blogly'
 # database_uri = 'postgres://tzhjbumr:7LhS3yvsI2BcGdKfYVaMN6X-iYuro_1M@stampy.db.elephantsql.com/tzhjbumr'
-# database_uri = 'postgres://mpzjqsja:2s8dz_Ae5V1hNjWUDIFYl8KQ8n20XJUK@stampy.db.elephantsql.com/mpzjqsja'
+database_uri = 'psycopg2.connect(user="postgres", password="Getfuzzy1", host="azure-postgres1.postgres.database.azure.com", port=5432, database="postgres")'
 
 # app.config['SQLALCHEMY_DATABASE_URI'] = database_uri
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
