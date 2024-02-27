@@ -3,15 +3,17 @@ from flask_debugtoolbar import DebugToolbarExtension
 from models import db, connect_db, User, Post, Tag
 import psycopg2
 
-host = "cloudpostgres.postgres.database.azure.com"
-dbname = "cloudpostgres"
-user = "postgres"
-password = "Getfuzzy@1"
-sslmode = "require"
+# host = "cloudpostgres.postgres.database.azure.com"
+# dbname = "cloudpostgres"
+# user = "postgres"
+# password = "Getfuzzy@1"
+# sslmode = "require"
 
-url_object = "host={0} user={1} dbname={2} password={3} sslmode={4}".format(host, user, dbname, password, sslmode)
-conn = psycopg2.connect(url_object)
-print("Connection established")
+# url_object = "host={0} user={1} dbname={2} password={3} sslmode={4}".format(host, user, dbname, password, sslmode)
+# conn = psycopg2.connect(url_object)
+# print("Connection established")
+
+database_uri = "postgres://mpzjqsja:2s8dz_Ae5V1hNjWUDIFYl8KQ8n20XJUK@stampy.db.elephantsql.com/mpzjqsja"
 
 # from sqlalchemy import create_engine
 
@@ -54,8 +56,8 @@ app = Flask(__name__)
 # database_uri = 'postgres://tzhjbumr:7LhS3yvsI2BcGdKfYVaMN6X-iYuro_1M@stampy.db.elephantsql.com/tzhjbumr'
 # database_uri = 'psycopg2.connect(user="postgres", password="Getfuzzy1", host="azure-postgres1.postgres.database.azure.com", port=5432, database="postgres")'
 
-app.config['SQLALCHEMY_DATABASE_URI'] = url_object
-# app.config['SQLALCHEMY_DATABASE_URI'] = database_uri
+# app.config['SQLALCHEMY_DATABASE_URI'] = url_object
+app.config['SQLALCHEMY_DATABASE_URI'] = database_uri
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECRET_KEY'] = 'ihaveasecret'
 
