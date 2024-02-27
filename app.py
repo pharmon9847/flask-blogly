@@ -23,7 +23,7 @@ database_uri = 'postgresql+psycopg2://postgres:Getfuzzy1@127.0.0.1:5432/blogly'
 # database_uri = 'postgres://tzhjbumr:7LhS3yvsI2BcGdKfYVaMN6X-iYuro_1M@stampy.db.elephantsql.com/tzhjbumr'
 # database_uri = 'psycopg2.connect(user="postgres", password="Getfuzzy1", host="azure-postgres1.postgres.database.azure.com", port=5432, database="postgres")'
 
-# app.config['SQLALCHEMY_DATABASE_URI'] = database_uri
+app.config['SQLALCHEMY_DATABASE_URI'] = database_uri
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECRET_KEY'] = 'ihaveasecret'
 
