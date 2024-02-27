@@ -13,13 +13,15 @@ import psycopg2
 # conn = psycopg2.connect(url_object)
 # print("Connection established")
 
-database_uri = "postgres://mpzjqsja:2s8dz_Ae5V1hNjWUDIFYl8KQ8n20XJUK@stampy.db.elephantsql.com/mpzjqsja"
+# database_uri = "postgres://mpzjqsja:2s8dz_Ae5V1hNjWUDIFYl8KQ8n20XJUK@stampy.db.elephantsql.com/mpzjqsja"
 
 # from sqlalchemy import create_engine
 
 # engine = create_engine('postgresql+psycopg2://postgres:Getfuzzy1@127.0.0.1:5432/blogly')
 
 # url_object = psycopg2.connect(user="postgres", password="Getfuzzy@1", host="azure-postgres1.postgres.database.azure.com", port=5432, database="postgres")
+
+database_uri = psycopg2.connect(user="postgres", password="Getfuzzy@1", host="cloudpostgres.postgres.database.azure.com", port=5432, database="postgres")
 
 from sqlalchemy import URL
 
