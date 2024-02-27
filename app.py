@@ -2,9 +2,25 @@ from flask import Flask, request, redirect, render_template, flash
 from flask_debugtoolbar import DebugToolbarExtension
 from models import db, connect_db, User, Post, Tag
 
+# from sqlalchemy import create_engine
+
+# engine = create_engine('postgresql+psycopg2://postgres:Getfuzzy1@127.0.0.1:5432/blogly')
+
+url_object = psycopg2.connect(user="postgres", password="Getfuzzy@1", host="azure-postgres1.postgres.database.azure.com", port=5432, database="postgres")
+
+from sqlalchemy import URL
+
+# url_object = URL.create(
+#     "postgresql+pg8000",
+#     username="dbuser",
+#     password="kx@jj5/g",  # plain (unescaped) text
+#     host="pghost10",
+#     database="appdb",
+# )
+
 from sqlalchemy import create_engine
 
-engine = create_engine('postgresql+psycopg2://postgres:Getfuzzy1@127.0.0.1:5432/blogly')
+engine = create_engine(url_object)
 
 # from sqlalchemy import create_engine
 
