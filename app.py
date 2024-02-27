@@ -2,6 +2,10 @@ from flask import Flask, request, redirect, render_template, flash
 from flask_debugtoolbar import DebugToolbarExtension
 from models import db, connect_db, User, Post, Tag
 
+from sqlalchemy import create_engine
+
+engine = create_engine('postgresql+psycopg2://postgres:Getfuzzy1@127.0.0.1:5432/blogly')
+
 # from sqlalchemy import create_engine
 
 # engine = create_engine('postgresql+psycopg2://postgres:Getfuzzy1@127.0.0.1:5050/blogly')
