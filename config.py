@@ -19,10 +19,10 @@ class Config:
     CSRF_ENABLED = True
     ASSETS_DEBUG = False
     
-class ProductionConfig(Config)
+class ProductionConfig(Config):
     pass
 
-class DevelopmentConfig(Config)
+class DevelopmentConfig(Config):
     DEBUG = True
     DEVELOPMENT = True
     TEMPLATES_AUTO_RELOAD = True
