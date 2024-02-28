@@ -59,7 +59,7 @@ app = Flask(__name__)
 # database_uri = 'postgres://tzhjbumr:7LhS3yvsI2BcGdKfYVaMN6X-iYuro_1M@stampy.db.elephantsql.com/tzhjbumr'
 # database_uri = 'psycopg2.connect(user="postgres", password="Getfuzzy1", host="azure-postgres1.postgres.database.azure.com", port=5432, database="postgres")'
 
-app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://postgres:Getfuzzy@1@aws-databases.czy6u4a2ykly.us-east-1.rds.amazonaws.com:5432/aws-databases"
+app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://postgres:Getfuzzy@1@azure-db-1.postgres.database.azure.com:5432/postgres"
 # app.config['SQLALCHEMY_DATABASE_URI'] = database_uri
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECRET_KEY'] = 'ihaveasecret'
