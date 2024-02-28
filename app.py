@@ -2,6 +2,7 @@ from flask import Flask, request, redirect, render_template, flash
 from flask_debugtoolbar import DebugToolbarExtension
 from models import db, connect_db, User, Post, Tag
 import psycopg2
+import os
 
 # host = "cloudpostgres.postgres.database.azure.com"
 # dbname = "cloudpostgres"
