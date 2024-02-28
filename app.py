@@ -13,13 +13,13 @@ import psycopg2
 # conn = psycopg2.connect(url_object)
 # print("Connection established")
 
-database_uri = "postgres://mpzjqsja:2s8dz_Ae5V1hNjWUDIFYl8KQ8n20XJUK@stampy.db.elephantsql.com/mpzjqsja"
+# database_uri = "postgres://mpzjqsja:2s8dz_Ae5V1hNjWUDIFYl8KQ8n20XJUK@stampy.db.elephantsql.com/mpzjqsja"
 
 # from sqlalchemy import create_engine
 
 # engine = create_engine('postgresql+psycopg2://postgres:Getfuzzy1@127.0.0.1:5432/blogly')
 
-# url_object = psycopg2.connect(user="postgres", password="Getfuzzy@1", host="azure-postgres1.postgres.database.azure.com", port=5432, database="postgres")
+url_object = psycopg2.connect(user="postgres", password="Getfuzzy@1", host="azure-db1.postgres.database.azure.com", port=5432, database="postgres")
 
 # database_uri = psycopg2.connect(user="postgres", password="Getfuzzy@1", host="cloudpostgres.postgres.database.azure.com", port=5432, database="postgres")
 
@@ -58,10 +58,13 @@ app = Flask(__name__)
 # database_uri = 'postgres://tzhjbumr:7LhS3yvsI2BcGdKfYVaMN6X-iYuro_1M@stampy.db.elephantsql.com/tzhjbumr'
 # database_uri = 'psycopg2.connect(user="postgres", password="Getfuzzy1", host="azure-postgres1.postgres.database.azure.com", port=5432, database="postgres")'
 
-# app.config['SQLALCHEMY_DATABASE_URI'] = url_object
-app.config['SQLALCHEMY_DATABASE_URI'] = database_uri
+app.config['SQLALCHEMY_DATABASE_URI'] = url_object
+# app.config['SQLALCHEMY_DATABASE_URI'] = database_uri
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECRET_KEY'] = 'ihaveasecret'
+
+env_config = os.getenv("PROD_APP_SETTINGS", "config.DevelopmentConfig")
+app.config.from_object(env_config)
 
 # app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
 
