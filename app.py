@@ -14,11 +14,11 @@ import os
 # conn = psycopg2.connect(url_object)
 # print("Connection established")
 
-database_uri = "postgres://mpzjqsja:2s8dz_Ae5V1hNjWUDIFYl8KQ8n20XJUK@stampy.db.elephantsql.com/mpzjqsja"
+# database_uri = "postgres://mpzjqsja:2s8dz_Ae5V1hNjWUDIFYl8KQ8n20XJUK@stampy.db.elephantsql.com/mpzjqsja"
 
-# from sqlalchemy import create_engine
+from sqlalchemy import create_engine
 
-# engine = create_engine('postgresql+psycopg2://postgres:Getfuzzy1@127.0.0.1:5432/blogly')
+engine = create_engine('postgresql+psycopg2://mpzjqsja:2s8dz_Ae5V1hNjWUDIFYl8KQ8n20XJUK@stampy.db.elephantsql.com/mpzjqsja')
 
 # url_object = psycopg2.connect(user="postgres", password="Getfuzzy@1", host="azure-db1.postgres.database.azure.com", port=5432, database="postgres")
 
@@ -60,7 +60,7 @@ app = Flask(__name__)
 # database_uri = 'psycopg2.connect(user="postgres", password="Getfuzzy1", host="azure-postgres1.postgres.database.azure.com", port=5432, database="postgres")'
 
 # app.config['SQLALCHEMY_DATABASE_URI'] = url_object
-app.config['SQLALCHEMY_DATABASE_URI'] = database_uri
+# app.config['SQLALCHEMY_DATABASE_URI'] = database_uri
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECRET_KEY'] = 'ihaveasecret'
 
