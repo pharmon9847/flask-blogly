@@ -1,7 +1,7 @@
 from models import db, User, Post, Tag
 from app import app
 
-db.drop_all()
+# db.drop_all()
 db.create_all()
 
 User.query.delete()

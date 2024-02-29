@@ -3,6 +3,24 @@ from flask_debugtoolbar import DebugToolbarExtension
 from models import db, connect_db, User, Post, Tag
 import psycopg2
 import os
+import sqlalchemy
+
+# from sqlalchemy import create_engine
+# engine = create_engine("postgresql+psycopg2://blogly_x519_user:PVGGb0k6fPqbGk9IjMNO48ZNBL1QYWRM@dpg-cng9ja0l6cac739mqv80-a.oregon-postgres.render.com:5432/blogly_x519")
+app = Flask(__name__)
+
+
+# import dj_database_url
+
+# DATABASES = {
+#     'default': dj_database_url.config(
+#         default='postgres://blogly_x519_user:PVGGb0k6fPqbGk9IjMNO48ZNBL1QYWRM@dpg-cng9ja0l6cac739mqv80-a.oregon-postgres.render.com/blogly_x519',
+#         conn_max_age=600,
+#         conn_health_checks=True,
+#     )
+# }
+
+database_uri = "postgres://blogly_x519_user:PVGGb0k6fPqbGk9IjMNO48ZNBL1QYWRM@dpg-cng9ja0l6cac739mqv80-a/blogly_x519"
 
 # host = "cloudpostgres.postgres.database.azure.com"
 # dbname = "cloudpostgres"
@@ -14,7 +32,7 @@ import os
 # conn = psycopg2.connect(url_object)
 # print("Connection established")
 
-# database_uri = "postgres+psycopg2://mpzjqsja:2s8dz_Ae5V1hNjWUDIFYl8KQ8n20XJUK@stampy.db.elephantsql.com/mpzjqsja"
+# database_url = "postgresl+psycopg2://mpzjqsja:W6DGKwNStfs0uhMwOG8oMozbdZEwo6u9@stampy.db.elephantsql.com:5432/mpzjqsja"
 
 # from sqlalchemy import create_engine
 
@@ -34,6 +52,12 @@ from sqlalchemy import URL
 #     database="appdb",
 # )
 
+# database_uri = "postgresl+psycopg2://blogly_x519_user:PVGGb0k6fPqbGk9IjMNO48ZNBL1QYWRM@dpg-cng9ja0l6cac739mqv80-a/blogly_x519"
+# database_url = "postgresql+psycopg2://blogly_x519_user:PVGGb0k6fPqbGk9IjMNO48ZNBL1QYWRM@dpg-cng9ja0l6cac739mqv80-a.oregon-postgres.render.com:5432/blogly_x519_user"
+
+# engine = create_engine(DB_URL, pool_pre_ping=True, pool_recycle=300)
+# database_uri = 'postgresql+psycopg2://postgres:Getfuzzy1@127.0.0.1:5432/blogly'
+
 # from sqlalchemy import create_engine
 
 # engine = create_engine(url_object)
@@ -46,23 +70,24 @@ from sqlalchemy import URL
 
 # session = Session(engine)
 
+
 import inspect
 
 if not hasattr(inspect, 'getargspec'):
     inspect.getargspec = inspect.getfullargspec
 
-app = Flask(__name__)
 
 # app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql+psycopg2://admin:Getfuzzy1@database-1.czy6u4a2ykly.us-east-1.rds.amazonaws.com/database-1"
 # connecting to pgadmin instead of postgres locally
 # database_uri = 'postgresql+psycopg2://postgres:Getfuzzy1@127.0.0.1:5432/blogly'
-# database_uri = 'postgres://tzhjbumr:7LhS3yvsI2BcGdKfYVaMN6X-iYuro_1M@stampy.db.elephantsql.com/tzhjbumr'
+# database_url = 'postgres://mpzjqsja:W6DGKwNStfs0uhMwOG8oMozbdZEwo6u9@stampy.db.elephantsql.com:5432/mpzjqsja'
 # database_uri = 'psycopg2.connect(user="postgres", password="Getfuzzy1", host="azure-postgres1.postgres.database.azure.com", port=5432, database="postgres")'
-database_uri = "postgresql+psycopg2://postgres:Getfuzzy@1azure-db-1.postgres.database.azure.com/postgres"
 # app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://postgres:Getfuzzy@1@azure-db-1.postgres.database.azure.com:5432/postgres"
 app.config['SQLALCHEMY_DATABASE_URI'] = database_uri
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECRET_KEY'] = 'ihaveasecret'
+# app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {"pool_pre_ping": True}  
+
 
 env_config = os.getenv("PROD_APP_SETTINGS", "config.DevelopmentConfig")
 app.config.from_object(env_config)
