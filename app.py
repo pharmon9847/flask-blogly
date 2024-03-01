@@ -20,7 +20,7 @@ app = Flask(__name__)
 #     )
 # }
 
-database_uri = "postgres://blogly_x519_user:PVGGb0k6fPqbGk9IjMNO48ZNBL1QYWRM@dpg-cng9ja0l6cac739mqv80-a/blogly_x519"
+# database_uri = "postgres://blogly_x519_user:PVGGb0k6fPqbGk9IjMNO48ZNBL1QYWRM@dpg-cng9ja0l6cac739mqv80-a/blogly_x519"
 
 # host = "cloudpostgres.postgres.database.azure.com"
 # dbname = "cloudpostgres"
@@ -53,7 +53,7 @@ from sqlalchemy import URL
 # )
 
 # database_uri = "postgresl+psycopg2://blogly_x519_user:PVGGb0k6fPqbGk9IjMNO48ZNBL1QYWRM@dpg-cng9ja0l6cac739mqv80-a/blogly_x519"
-# database_url = "postgresql+psycopg2://blogly_x519_user:PVGGb0k6fPqbGk9IjMNO48ZNBL1QYWRM@dpg-cng9ja0l6cac739mqv80-a.oregon-postgres.render.com:5432/blogly_x519_user"
+database_uri = "postgresql+psycopg2://blogly_x519_user:PVGGb0k6fPqbGk9IjMNO48ZNBL1QYWRM@dpg-cng9ja0l6cac739mqv80-a.oregon-postgres.render.com:5432/blogly_x519"
 
 # engine = create_engine(DB_URL, pool_pre_ping=True, pool_recycle=300)
 # database_uri = 'postgresql+psycopg2://postgres:Getfuzzy1@127.0.0.1:5432/blogly'
