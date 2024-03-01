@@ -5,84 +5,10 @@ import psycopg2
 import os
 import sqlalchemy
 
-# from sqlalchemy import create_engine
-# engine = create_engine("postgresql+psycopg2://blogly_x519_user:PVGGb0k6fPqbGk9IjMNO48ZNBL1QYWRM@dpg-cng9ja0l6cac739mqv80-a.oregon-postgres.render.com:5432/blogly_x519")
 app = Flask(__name__)
 
-
-# import dj_database_url
-
-# DATABASES = {
-#     'default': dj_database_url.config(
-#         default='postgres://blogly_x519_user:PVGGb0k6fPqbGk9IjMNO48ZNBL1QYWRM@dpg-cng9ja0l6cac739mqv80-a.oregon-postgres.render.com/blogly_x519',
-#         conn_max_age=600,
-#         conn_health_checks=True,
-#     )
-# }
-
-# database_uri = "postgres://blogly_x519_user:PVGGb0k6fPqbGk9IjMNO48ZNBL1QYWRM@dpg-cng9ja0l6cac739mqv80-a/blogly_x519"
-
-# host = "cloudpostgres.postgres.database.azure.com"
-# dbname = "cloudpostgres"
-# user = "postgres"
-# password = "Getfuzzy@1"
-# sslmode = "require"
-
-# url_object = "host={0} user={1} dbname={2} password={3} sslmode={4}".format(host, user, dbname, password, sslmode)
-# conn = psycopg2.connect(url_object)
-# print("Connection established")
-
-# database_url = "postgresl+psycopg2://mpzjqsja:W6DGKwNStfs0uhMwOG8oMozbdZEwo6u9@stampy.db.elephantsql.com:5432/mpzjqsja"
-
-# from sqlalchemy import create_engine
-
-# engine = create_engine('postgresql+psycopg2://mpzjqsja:2s8dz_Ae5V1hNjWUDIFYl8KQ8n20XJUK@stampy.db.elephantsql.com/mpzjqsja')
-
-# url_object = psycopg2.connect(user="postgres", password="Getfuzzy@1", host="azure-db1.postgres.database.azure.com", port=5432, database="postgres")
-
-# database_uri = psycopg2.connect(user="postgres", password="Getfuzzy@1", host="cloudpostgres.postgres.database.azure.com", port=5432, database="postgres")
-
-from sqlalchemy import URL
-
-# url_object = URL.create(
-#     "postgresql+pg8000",
-#     username="dbuser",
-#     password="kx@jj5/g",  # plain (unescaped) text
-#     host="pghost10",
-#     database="appdb",
-# )
-
-# database_uri = "postgresl+psycopg2://blogly_x519_user:PVGGb0k6fPqbGk9IjMNO48ZNBL1QYWRM@dpg-cng9ja0l6cac739mqv80-a/blogly_x519"
 database_uri = "postgresql+psycopg2://blogly_x519_user:PVGGb0k6fPqbGk9IjMNO48ZNBL1QYWRM@dpg-cng9ja0l6cac739mqv80-a.oregon-postgres.render.com:5432/blogly_x519"
 
-# engine = create_engine(DB_URL, pool_pre_ping=True, pool_recycle=300)
-# database_uri = 'postgresql+psycopg2://postgres:Getfuzzy1@127.0.0.1:5432/blogly'
-
-# from sqlalchemy import create_engine
-
-# engine = create_engine(url_object)
-
-# from sqlalchemy import create_engine
-
-# engine = create_engine('postgresql+psycopg2://postgres:Getfuzzy1@127.0.0.1:5050/blogly')
-
-# from sqlalchemy import Session
-
-# session = Session(engine)
-
-
-# import inspect
-
-# if not hasattr(inspect, 'getargspec'):
-#     inspect.getargspec = inspect.getfullargspec
-
-
-# app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql+psycopg2://admin:Getfuzzy1@database-1.czy6u4a2ykly.us-east-1.rds.amazonaws.com/database-1"
-# connecting to pgadmin instead of postgres locally
-# database_uri = 'postgresql+psycopg2://postgres:Getfuzzy1@127.0.0.1:5432/blogly'
-# database_url = 'postgres://mpzjqsja:W6DGKwNStfs0uhMwOG8oMozbdZEwo6u9@stampy.db.elephantsql.com:5432/mpzjqsja'
-# database_uri = 'psycopg2.connect(user="postgres", password="Getfuzzy1", host="azure-postgres1.postgres.database.azure.com", port=5432, database="postgres")'
-# app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://postgres:Getfuzzy@1@azure-db-1.postgres.database.azure.com:5432/postgres"
 app.config['SQLALCHEMY_DATABASE_URI'] = database_uri
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECRET_KEY'] = 'ihaveasecret'
@@ -96,7 +22,6 @@ app.config.from_object(env_config)
 
 # toolbar = DebugToolbarExtension(app)
 
-# args, varargs, keywords, defaults, foo, foo1, foo2 = inspect.getfullargspec(func)
 
 connect_db(app)
 # db.create_all()
