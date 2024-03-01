@@ -1,5 +1,5 @@
 from flask import Flask, request, redirect, render_template, flash
-from flask_debugtoolbar import DebugToolbarExtension
+# from flask_debugtoolbar import DebugToolbarExtension
 from models import db, connect_db, User, Post, Tag
 import psycopg2
 import os
@@ -71,10 +71,10 @@ database_uri = "postgresql+psycopg2://blogly_x519_user:PVGGb0k6fPqbGk9IjMNO48ZNB
 # session = Session(engine)
 
 
-import inspect
+# import inspect
 
-if not hasattr(inspect, 'getargspec'):
-    inspect.getargspec = inspect.getfullargspec
+# if not hasattr(inspect, 'getargspec'):
+#     inspect.getargspec = inspect.getfullargspec
 
 
 # app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql+psycopg2://admin:Getfuzzy1@database-1.czy6u4a2ykly.us-east-1.rds.amazonaws.com/database-1"
@@ -94,7 +94,7 @@ app.config.from_object(env_config)
 
 # app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
 
-toolbar = DebugToolbarExtension(app)
+# toolbar = DebugToolbarExtension(app)
 
 # args, varargs, keywords, defaults, foo, foo1, foo2 = inspect.getfullargspec(func)
 
